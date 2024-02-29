@@ -25,4 +25,5 @@ public class Book {
     @JoinColumn(name = "author_id")
     private Author author;
     private Double price;
+    private Long isnb;
 }

@@ -4,6 +4,7 @@ package com.example.library.controller;
 import com.example.library.author.Author;
 import com.example.library.author.AuthorDTO;
 import com.example.library.author.AuthorRepository;
+import com.example.library.author.AuthorService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class AuthorController {
     @Autowired
     private AuthorRepository authorRepository;
 
+    @Autowired
+    private AuthorService authorService;
+
 
     @GetMapping()
     public ResponseEntity<List<Author>> getAllAuthors() {
@@ -31,6 +35,6 @@ public class AuthorController {
     public ResponseEntity<Author> saveAuthor(@RequestBody AuthorDTO authorDTO) {
         var authorModel = new Author();
         BeanUtils.copyProperties(authorDTO, authorModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(authorRepository.save(authorModel));
+        return ResponseEntity.status(HttpStatus.CREATED).body(authorService.addAuthorIfNotExists(authorModel));
     }
 }
