@@ -2,6 +2,7 @@ package com.example.library.author;
 
 
 import com.example.library.book.Book;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -21,11 +22,14 @@ public class Author {
 
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String name;
+
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
+
+    @JsonIgnore
     @OneToMany(mappedBy = "author")
     private List<Book> bookList;
 
