@@ -10,12 +10,19 @@ public class AuthorService {
     private AuthorRepository authorRepository;
 
     public Author addAuthorIfNotExists(Author author) {
-
         Author existingAuthor = authorRepository.findByName(author.getName());
         if(existingAuthor != null) {
             return existingAuthor;
         }
         return authorRepository.save(author);
+    }
+
+    public Boolean authorExists(Author author) {
+        Author existingAuthor = authorRepository.findByName(author.getName());
+        if(existingAuthor != null) {
+            return true;
+        }
+        return false;
     }
 
 }
