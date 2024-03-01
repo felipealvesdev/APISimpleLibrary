@@ -17,6 +17,15 @@ public class AuthorService {
         return authorRepository.save(author);
     }
 
+    public Author getAuthor(Author author) {
+        Author existingAuthor = authorRepository.findByName(author.getName());
+        if(existingAuthor != null) {
+            return existingAuthor;
+        }
+        return author;
+    }
+
+
     public Boolean authorExists(Author author) {
         Author existingAuthor = authorRepository.findByName(author.getName());
         if(existingAuthor != null) {

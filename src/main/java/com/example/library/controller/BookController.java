@@ -42,8 +42,9 @@ public class BookController {
         if(existingBook) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-        if(!existingAuthor) {
-            authorService.addAuthorIfNotExists(bookModel.getAuthor());
+        if(existingAuthor) {
+            var tempAuthor = authorService.getAuthor(bookModel.getAuthor());
+            bookModel.setAuthor(tempAuthor);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookIfNotExists(bookModel));
     }

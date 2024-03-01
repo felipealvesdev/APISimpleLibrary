@@ -35,6 +35,10 @@ public class AuthorController {
     public ResponseEntity<Author> saveAuthor(@RequestBody AuthorDTO authorDTO) {
         var authorModel = new Author();
         BeanUtils.copyProperties(authorDTO, authorModel);
+        Boolean existingAuthor = authorService.authorExists(authorModel);
+        if(existingAuthor) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+        }
         return ResponseEntity.status(HttpStatus.CREATED).body(authorService.addAuthorIfNotExists(authorModel));
     }
 }
