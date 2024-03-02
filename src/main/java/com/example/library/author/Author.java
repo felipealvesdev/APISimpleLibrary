@@ -29,7 +29,7 @@ public class Author {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private LocalDate dateOfBirth;
 
-    @JsonIgnore
+
     @OneToMany(mappedBy = "author")
     private List<Book> bookList;
 

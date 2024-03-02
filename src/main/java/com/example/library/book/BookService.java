@@ -19,6 +19,15 @@ public class BookService {
         return bookRespository.save(book);
     }
 
+    public Book getBook(Book book) {
+        Book existingBook = bookRespository.findBookByIsnb(book.getIsnb());
+        if(existingBook != null) {
+            return existingBook;
+        }
+        return book;
+    }
+
+
     public Boolean bookExists(Book book) {
         Book existingBook = bookRespository.findBookByIsnb(book.getIsnb());
         if(existingBook != null) {

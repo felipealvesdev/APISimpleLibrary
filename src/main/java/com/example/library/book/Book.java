@@ -2,6 +2,7 @@ package com.example.library.book;
 
 
 import com.example.library.author.Author;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -21,9 +22,12 @@ public class Book {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
     private String title;
+
+    @JsonIgnore
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "author_id")
     private Author author;
+
     private Double price;
     private Long isnb;
 }

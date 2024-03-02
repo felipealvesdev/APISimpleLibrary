@@ -5,6 +5,8 @@ import com.example.library.author.Author;
 import com.example.library.author.AuthorDTO;
 import com.example.library.author.AuthorRepository;
 import com.example.library.author.AuthorService;
+import com.example.library.book.Book;
+import com.example.library.book.BookDTO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
