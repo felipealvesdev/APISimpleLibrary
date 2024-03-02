@@ -2,13 +2,11 @@ package com.example.library.author;
 
 
 import com.example.library.book.Book;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Entity(name = "authors")

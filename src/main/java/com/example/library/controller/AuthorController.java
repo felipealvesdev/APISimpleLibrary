@@ -7,6 +7,7 @@ import com.example.library.author.AuthorRepository;
 import com.example.library.author.AuthorService;
 import com.example.library.book.Book;
 import com.example.library.book.BookDTO;
+import com.example.library.book.BookService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,11 +28,24 @@ public class AuthorController {
     @Autowired
     private AuthorService authorService;
 
+    @Autowired
+    private BookService bookService;
+
 
     @GetMapping()
     public ResponseEntity<List<Author>> getAllAuthors() {
         return ResponseEntity.status(HttpStatus.OK).body(authorRepository.findAll());
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getAuthorById(@PathVariable(value = "id") Long id) {
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found.");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(author.get());
+    }
+
 
     @PostMapping()
     public ResponseEntity<Author> saveAuthor(@RequestBody AuthorDTO authorDTO) {
