@@ -68,8 +68,11 @@ public class AuthorController {
         }
         var bookModel = new Book();
         BeanUtils.copyProperties(bookDTO, bookModel);
+
+        bookModel = bookService.getBook(bookModel);
+
         bookModel.setAuthor(author.get());
-        bookService.addBookIfNotExists(bookModel);
+        bookService.saveBook(bookService.addBookIfNotExists(bookModel));
         return ResponseEntity.status(HttpStatus.OK).body(author.get());
     }
 }

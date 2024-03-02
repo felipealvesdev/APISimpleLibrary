@@ -27,6 +27,10 @@ public class BookService {
         return book;
     }
 
+    public void saveBook(Book book) {
+        bookRespository.save(book);
+    }
+
 
     public Boolean bookExists(Book book) {
         Book existingBook = bookRespository.findBookByIsnb(book.getIsnb());
