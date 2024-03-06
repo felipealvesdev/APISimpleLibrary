@@ -75,4 +75,14 @@ public class AuthorController {
         bookService.saveBook(bookService.addBookIfNotExists(bookModel));
         return ResponseEntity.status(HttpStatus.OK).body(author.get());
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteAuthor(@PathVariable(value = "id") Long id) {
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found.");
+        }
+        authorRepository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Author deleted successfully.");
+    }
 }
