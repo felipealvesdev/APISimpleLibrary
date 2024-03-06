@@ -35,6 +35,17 @@ public class BookController {
         return ResponseEntity.status(HttpStatus.OK).body(bookRespository.findAll());
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getBookById(@PathVariable(value = "id")UUID id) {
+        Optional<Book> bookModel = bookRespository.findById(id);
+
+        if(bookModel.isEmpty()){
+            ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
+        }
+
+        return ResponseEntity.status(HttpStatus.OK).body(bookRespository.findById(id));
+    }
+
     @PostMapping()
     public ResponseEntity<Book> saveBook(@RequestBody BookDTO bookDTO) {
         var bookModel = new Book();
