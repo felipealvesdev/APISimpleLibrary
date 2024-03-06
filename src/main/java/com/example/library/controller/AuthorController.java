@@ -9,6 +9,7 @@ import com.example.library.book.Book;
 import com.example.library.book.BookDTO;
 import com.example.library.book.BookService;
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,4 +86,18 @@ public class AuthorController {
         authorRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.OK).body("Author deleted successfully.");
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<Object> updateAuthor(@PathVariable(value = "id") Long id,
+                                               @RequestBody @Valid AuthorDTO authorDTO) {
+        Optional<Author> author = authorRepository.findById(id);
+        if(author.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Author not found.");
+        }
+
+        var authorModel = author.get();
+        BeanUtils.copyProperties(authorDTO, authorModel);
+        return ResponseEntity.status(HttpStatus.OK).body(authorRepository.save(authorModel));
+    }
+
 }
