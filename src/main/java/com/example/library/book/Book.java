@@ -30,4 +30,14 @@ public class Book {
 
     private Double price;
     private Long isnb;
+
+    @Transient
+    private String authorName;
+
+    @PostLoad
+    private void fillAuthorName() {
+        if (author != null) {
+            authorName = author.getName();
+        }
+    }
 }
