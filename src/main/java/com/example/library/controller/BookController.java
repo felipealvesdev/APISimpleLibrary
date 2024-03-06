@@ -14,6 +14,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/books")
@@ -47,5 +49,17 @@ public class BookController {
             bookModel.setAuthor(tempAuthor);
         }
         return ResponseEntity.status(HttpStatus.CREATED).body(bookService.addBookIfNotExists(bookModel));
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteBook(@PathVariable(value = "id") UUID id) {
+        Optional<Book> bookModel = bookRespository.findById(id);
+
+        if(bookModel.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
+        }
+
+        bookRespository.deleteById(id);
+        return ResponseEntity.status(HttpStatus.OK).body("Book has been deleted successfully.");
     }
 }
